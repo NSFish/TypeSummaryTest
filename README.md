@@ -1,10 +1,12 @@
 ## 问题描述
 
 在Xcode中断点调试时，鼠标停留在变量上，就能看到变量的信息。但对于自定义对象，通常Xcode提供的直接信息非常有限，像这样
+
 ![请输入图片描述][1]
 
 
 想要了解这个对象具体的内容，需要展开左边的箭头
+
 ![请输入图片描述][2]
 
 当开发者想要知道该对象具体某个成员(很可能也是一个对象，即对象的成员的成员.....)的值时，就不得不反复展开多个箭头，平添了不少debug时的焦躁=。=
@@ -12,6 +14,7 @@
 ## 解决方案
 其实LLDB的设计者并非没有考虑到这种情况，他们设计了一种机制，允许在浮动窗口和变量窗口中显示***自定义类型对象的概览***，称之为summary。
 没错，就是浮动窗口上最后一行显示的summary，我们再看一次
+
 ![请输入图片描述][3]
 
 Summary的原理很简单，就是保存一个"对象类型->概览"的映射表，在调试时查表进行显示。在console中输入
@@ -23,13 +26,16 @@ type summary list
 type summary list NSArray
 ```
 输出的结果里，可以找到
+
 ![请输入图片描述][4]
+
 和平常使用过程中的情况一致。
 
 LLDB支持为自定义类型添加summary。
 </br>
 </br>
-##解决示例
+
+## 解决示例
 直观起见，这里将写一个简单的对象并为之添加summary，下面请演员入场
 ```objc
 @interface Rectangle : NSObject
@@ -104,10 +110,12 @@ command script import /Users/XXX/Desktop/TypeSummaryTest/TypeSummaryTest/summary
 >.lldbinit这个技巧来自于Facebook的[chisel][8]，是一个FB扩展的LLDB命令集
 
 That's all for today, have fun~
+
 ![请输入图片描述][9]
 
 
-##参考资料
+## 参考资料
+
 [LLDB Tutorial][10]
 [LLDB Data Formatters][11]
 [Advanced Debugging with LLDB][12]
